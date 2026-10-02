@@ -1,0 +1,7 @@
+{
+  "name": "Avgust MIPE",
+  "description": "Aseguramiento y auditoría de Manejo Integrado de Plagas y Enfermedades (MIPE) para técnicos y agrónomos de Avgust Crop Protection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

@@ -1,0 +1,60 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Outer Glow Circle -->
+    <path
+        android:fillColor="#1534D399"
+        android:pathData="M54,16 A38,38 0 1 0 54,92 A38,38 0 1 0 54,16 Z" />
+
+    <!-- Technical Shield Background -->
+    <path
+        android:pathData="M54,22 L76,32 L76,56 C76,70 66,80 54,86 C42,80 32,70 32,56 L32,32 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="76"
+                android:endY="86"
+                android:startX="32"
+                android:startY="22"
+                android:type="linear">
+                <item android:color="#10B981" android:offset="0.0" />
+                <item android:color="#047857" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Shield Border Highlight -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M54,24 L74,33.5 L74,56 C74,68.5 64.5,78 54,83.5 C43.5,78 34,68.5 34,56 L34,33.5 Z"
+        android:strokeColor="#6EE7B7"
+        android:strokeWidth="1.8" />
+
+    <!-- Stylized Crop Leaf / Sprout -->
+    <path
+        android:pathData="M54,34 C54,34 65,42 63,55 C61.5,64 54,68 54,68 C54,68 47,63 46,55 C44.5,43 54,34 54,34 Z"
+        android:fillColor="#FFFFFF" />
+
+    <path
+        android:pathData="M54,38 L54,66 M54,48 L60,43 M54,54 L48,50"
+        android:strokeColor="#047857"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round" />
+
+    <!-- Inspection / Quality Badge (Checkmark badge on bottom right of shield) -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M66,60 A10,10 0 1 0 66,80 A10,10 0 1 0 66,60 Z" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M61,70 L64.5,73.5 L71,66" />
+
+</vector>
+
