@@ -22,9 +22,9 @@ export const AvgustHeader: React.FC<AvgustHeaderProps> = ({
 
       <div className="relative z-10 flex items-start justify-between">
         <div className="flex items-center gap-3.5">
-          <div className="w-13 h-13 rounded-2xl bg-white p-1.5 flex items-center justify-center shadow-md shrink-0 border border-emerald-300/40">
+          <div className="w-14 h-14 rounded-2xl bg-white p-1 flex items-center justify-center shadow-md shrink-0 border border-emerald-300/40">
             <img
-              src="/avgust-logo.svg"
+              src="/avgust-logo.png"
               alt="Avgust Crop Protection"
               className="w-full h-full object-contain"
             />

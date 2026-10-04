@@ -108,8 +108,8 @@ export const AuditDetailScreen: React.FC<AuditDetailScreenProps> = ({
       <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
           <div className="flex items-start gap-3">
-            <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-200 p-1 flex items-center justify-center shrink-0">
-              <img src="/avgust-logo.svg" alt="Avgust" className="w-full h-full object-contain" />
+            <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 p-0.5 flex items-center justify-center shrink-0 shadow-xs">
+              <img src="/avgust-logo.png" alt="Avgust" className="w-full h-full object-contain" />
             </div>
             <div>
               <span className="text-[10px] font-black uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
