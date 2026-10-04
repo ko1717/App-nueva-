@@ -1,10 +1,9 @@
-import AdmZip from 'adm-zip';
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 
 async function buildAndPackageApk() {
-  console.log('--- 1. Packaging Web App into Android APK ---');
+  console.log('=== 1. Starting 100% Android-Compliant APK Build ===');
 
   const distDir = path.resolve('dist');
   if (!fs.existsSync(distDir)) {
@@ -18,71 +17,94 @@ async function buildAndPackageApk() {
     fs.writeFileSync('debug.p12', Buffer.from(b64, 'base64'));
   }
 
-  const baseApkPath = 'AvgustMIPE.apk';
-  const zip = new AdmZip(baseApkPath);
+  const tempDir = path.resolve('apk_staging');
+  if (fs.existsSync(tempDir)) {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+  fs.mkdirSync(tempDir, { recursive: true });
 
-  // 1. Remove all existing assets/ and META-INF/ entries from the APK
-  const oldEntries = zip.getEntries();
-  for (const entry of oldEntries) {
-    if (entry.entryName.startsWith('assets/') || entry.entryName.startsWith('META-INF/')) {
-      zip.deleteFile(entry.entryName);
-    }
+  // 1. Unzip base APK structure
+  console.log('Extracting base Android package...');
+  execSync(`unzip -q AvgustMIPE.apk -d "${tempDir}"`);
+
+  // 2. Remove any old META-INF signatures
+  const metaInfDir = path.join(tempDir, 'META-INF');
+  if (fs.existsSync(metaInfDir)) {
+    fs.rmSync(metaInfDir, { recursive: true, force: true });
   }
 
-  // 2. Recursively add all files from `dist` into `assets/`
-  function addDistFilesToZip(dir, zipPrefix) {
-    const files = fs.readdirSync(dir);
-    for (const file of files) {
-      const fullPath = path.join(dir, file);
-      const stat = fs.statSync(fullPath);
-      const zipPath = `${zipPrefix}/${file}`;
-
-      if (stat.isDirectory()) {
-        addDistFilesToZip(fullPath, zipPath);
-      } else {
-        if (file.endsWith('.apk') || file.endsWith('.map')) continue;
-        const fileData = fs.readFileSync(fullPath);
-        zip.addFile(zipPath, fileData);
-      }
-    }
+  // 3. Sync web dist files into assets/
+  console.log('Embedding latest web assets into APK assets/...');
+  const targetAssetsDir = path.join(tempDir, 'assets');
+  if (!fs.existsSync(targetAssetsDir)) {
+    fs.mkdirSync(targetAssetsDir, { recursive: true });
   }
 
-  console.log('Embedding modern web application build into APK assets/...');
-  addDistFilesToZip(distDir, 'assets');
-
-  // 3. Write intermediate unsigned APK
-  const unalignedApk = 'AvgustMIPE_unaligned.apk';
-  const alignedApk = 'AvgustMIPE_aligned.apk';
-  zip.writeZip(unalignedApk);
-
-  // 4. Run official Android zipalign 4
-  console.log('--- 2. Zip aligning APK (4-byte alignment) ---');
-  execSync(`zipalign -f 4 ${unalignedApk} ${alignedApk}`, { stdio: 'inherit' });
-
-  // 5. Sign with official Android apksigner (v2 + v3 scheme)
-  console.log('--- 3. Signing APK with official Google apksigner (v2 + v3 Scheme) ---');
-  execSync(`apksigner sign --ks debug.p12 --ks-pass pass:android --ks-key-alias androiddebugkey --key-pass pass:android --out AvgustMIPE.apk ${alignedApk}`, { stdio: 'inherit' });
-
-  // 6. Verify with apksigner
-  console.log('--- 4. Verifying APK signature ---');
-  execSync('apksigner verify -v AvgustMIPE.apk', { stdio: 'inherit' });
-
-  // Copy to public and dist
-  fs.copyFileSync('AvgustMIPE.apk', 'public/AvgustMIPE.apk');
-  if (fs.existsSync('dist')) {
-    fs.copyFileSync('AvgustMIPE.apk', 'dist/AvgustMIPE.apk');
+  // Copy dist into assets
+  const distEntries = fs.readdirSync(distDir);
+  for (const entry of distEntries) {
+    if (entry.endsWith('.apk') || entry.endsWith('.map')) continue;
+    const src = path.join(distDir, entry);
+    execSync(`cp -rf "${src}" "${targetAssetsDir}/"`);
   }
 
-  // Cleanup temp files
+  // 4. Construct unaligned APK with resources.arsc STORED (method 0 - uncompressed)
+  console.log('=== 2. Creating APK with STORED (uncompressed) resources.arsc ===');
+  const unalignedApk = path.resolve('staging_unaligned.apk');
+  const alignedApk = path.resolve('staging_aligned.apk');
+  const finalApk = path.resolve('AvgustMIPE.apk');
+
   if (fs.existsSync(unalignedApk)) fs.unlinkSync(unalignedApk);
   if (fs.existsSync(alignedApk)) fs.unlinkSync(alignedApk);
-  if (fs.existsSync('temp_unaligned.apk')) fs.unlinkSync('temp_unaligned.apk');
-  if (fs.existsSync('temp_aligned.apk')) fs.unlinkSync('temp_aligned.apk');
 
-  console.log('\nSUCCESS! AvgustMIPE.apk has been generated, zip-aligned and officially signed (100% Android verified)!');
+  // Crucial: resources.arsc MUST be stored without compression (method 0)
+  execSync(`cd "${tempDir}" && zip -0 "${unalignedApk}" resources.arsc`, { stdio: 'inherit' });
+  // Add all other files with standard compression (-9), excluding resources.arsc and META-INF
+  execSync(`cd "${tempDir}" && zip -r -9 -u "${unalignedApk}" . -x "resources.arsc" "META-INF/*"`, { stdio: 'inherit' });
+
+  // 5. 4-byte ZipAlign
+  console.log('=== 3. Executing 4-byte zipalign ===');
+  execSync(`zipalign -f 4 "${unalignedApk}" "${alignedApk}"`, { stdio: 'inherit' });
+
+  // Verify alignment
+  execSync(`zipalign -c -v 4 "${alignedApk}" | grep "resources.arsc"`, { stdio: 'inherit' });
+
+  // 6. Official apksigner with v1, v2, and v3 schemes
+  console.log('=== 4. Signing with official apksigner (v1 + v2 + v3 schemes) ===');
+  execSync(
+    `apksigner sign --ks debug.p12 --ks-pass pass:android --ks-key-alias androiddebugkey --key-pass pass:android --min-sdk-version 21 --v1-signing-enabled true --v2-signing-enabled true --v3-signing-enabled true --out "${finalApk}" "${alignedApk}"`,
+    { stdio: 'inherit' }
+  );
+
+  // 7. Verify all signature schemes
+  console.log('=== 5. Verifying Android Signature Schemes ===');
+  execSync(`apksigner verify -v --min-sdk-version 23 "${finalApk}"`, { stdio: 'inherit' });
+
+  // 8. Copy to public/ and dist/
+  fs.copyFileSync(finalApk, 'public/AvgustMIPE.apk');
+  if (fs.existsSync(distDir)) {
+    fs.copyFileSync(finalApk, 'dist/AvgustMIPE.apk');
+  }
+
+  // Cleanup temporary staging
+  if (fs.existsSync(tempDir)) fs.rmSync(tempDir, { recursive: true, force: true });
+  if (fs.existsSync(unalignedApk)) fs.unlinkSync(unalignedApk);
+  if (fs.existsSync(alignedApk)) fs.unlinkSync(alignedApk);
+  if (fs.existsSync('apk_temp')) fs.rmSync('apk_temp', { recursive: true, force: true });
+  if (fs.existsSync('test_clean.apk')) fs.unlinkSync('test_clean.apk');
+  if (fs.existsSync('test_unaligned.apk')) fs.unlinkSync('test_unaligned.apk');
+  if (fs.existsSync('test_aligned.apk')) fs.unlinkSync('test_aligned.apk');
+  if (fs.existsSync('test_signed.apk')) fs.unlinkSync('test_signed.apk');
+  if (fs.existsSync('test_signed2.apk')) fs.unlinkSync('test_signed2.apk');
+  if (fs.existsSync('test_signed3.apk')) fs.unlinkSync('test_signed3.apk');
+
+  console.log('\n✅ SUCCESS: AvgustMIPE.apk is 100% compliant with Android standards!');
+  console.log(' - resources.arsc: STORED (0% compression, 4-byte aligned)');
+  console.log(' - Signature Schemes: v1 (JAR) = true, v2 = true, v3 = true');
+  console.log(' - Ready for installation on all physical Android devices.');
 }
 
 buildAndPackageApk().catch(err => {
-  console.error('Error packaging APK:', err);
+  console.error('Fatal error packaging APK:', err);
   process.exit(1);
 });

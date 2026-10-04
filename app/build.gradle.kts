@@ -23,18 +23,59 @@ android {
   }
 
   signingConfigs {
-    create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
-      storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD")
-      keyAlias = "upload"
-      keyPassword = System.getenv("KEY_PASSWORD")
-    }
+    // Flexible Debug Signing Configuration:
+    // Detects keystores in multiple possible locations or env variables,
+    // and explicitly enables v1, v2 and v3 signature schemes for maximum physical device compatibility.
+    val debugKeystoreCandidates = listOfNotNull(
+      System.getenv("DEBUG_KEYSTORE_PATH")?.let { file(it) },
+      file("${rootDir}/debug.keystore"),
+      file("${rootDir}/debug.p12"),
+      file("${System.getProperty("user.home")}/.android/debug.keystore")
+    )
+    val foundDebugKeystore = debugKeystoreCandidates.firstOrNull { it.exists() }
+
     create("debugConfig") {
-      storeFile = file("${rootDir}/debug.keystore")
-      storePassword = "android"
-      keyAlias = "androiddebugkey"
-      keyPassword = "android"
+      if (foundDebugKeystore != null) {
+        storeFile = foundDebugKeystore
+        storePassword = System.getenv("DEBUG_STORE_PASSWORD") ?: "android"
+        keyAlias = System.getenv("DEBUG_KEY_ALIAS") ?: "androiddebugkey"
+        keyPassword = System.getenv("DEBUG_KEY_PASSWORD") ?: "android"
+      }
+      enableV1Signing = true
+      enableV2Signing = true
+      enableV3Signing = true
+      enableV4Signing = false
+    }
+
+    // Production / Release Signing Configuration:
+    // Uses production keystore if present via KEYSTORE_PATH, otherwise falls back gracefully
+    // to debugConfig to allow local testing and builds without crashing.
+    val releaseKeystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
+    val releaseKeystoreFile = file(releaseKeystorePath)
+
+    create("release") {
+      if (releaseKeystoreFile.exists()) {
+        storeFile = releaseKeystoreFile
+        storePassword = System.getenv("STORE_PASSWORD")
+        keyAlias = System.getenv("KEY_ALIAS") ?: "upload"
+        keyPassword = System.getenv("KEY_PASSWORD") ?: System.getenv("STORE_PASSWORD")
+        enableV1Signing = true
+        enableV2Signing = true
+        enableV3Signing = true
+        enableV4Signing = false
+      } else {
+        // Fallback gracefully to debug keystore for physical test builds
+        if (foundDebugKeystore != null) {
+          storeFile = foundDebugKeystore
+          storePassword = System.getenv("DEBUG_STORE_PASSWORD") ?: "android"
+          keyAlias = System.getenv("DEBUG_KEY_ALIAS") ?: "androiddebugkey"
+          keyPassword = System.getenv("DEBUG_KEY_PASSWORD") ?: "android"
+        }
+        enableV1Signing = true
+        enableV2Signing = true
+        enableV3Signing = true
+        enableV4Signing = false
+      }
     }
   }
 

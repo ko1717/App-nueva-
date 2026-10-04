@@ -13,8 +13,11 @@ import {
   Shield,
   Bug,
   Filter,
+  Smartphone,
+  Download,
 } from 'lucide-react';
 import { AvgustHeader } from '../components/AvgustHeader';
+import { InstallAppModal } from '../components/InstallAppModal';
 import { FarmLotEntity, MipeAuditEntity, AppScreen } from '../types';
 
 interface DashboardScreenProps {
@@ -34,6 +37,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCrop, setSelectedCrop] = useState('TODOS');
+  const [showInstallModal, setShowInstallModal] = useState(false);
 
   const totalAudits = audits.length;
   const averageScore =
@@ -74,6 +78,46 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
         title="Aseguramiento MIPE"
         subtitle="Manejo Integrado de Plagas y Enfermedades • Auditoría de Campo"
       />
+
+      {/* Android App & APK Installation Banner */}
+      <div className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white rounded-2xl p-3.5 sm:p-4 shadow-md border border-emerald-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center shrink-0 text-emerald-400">
+            <Smartphone className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-xs font-bold text-white tracking-wide">
+                Avgust MIPE para Android
+              </span>
+              <span className="text-[9px] bg-emerald-500 text-emerald-950 font-black px-1.5 py-0.2 rounded-full uppercase">
+                Offline
+              </span>
+            </div>
+            <div className="text-[11px] text-emerald-200/80">
+              Instala directamente en tu teléfono o descarga el archivo APK oficial.
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 self-end sm:self-auto">
+          <button
+            onClick={() => setShowInstallModal(true)}
+            className="px-3.5 py-2 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 text-xs font-black rounded-xl shadow transition-transform active:scale-95 flex items-center gap-1.5"
+          >
+            <Smartphone className="w-3.5 h-3.5" />
+            <span>Instalar App / Ayuda APK</span>
+          </button>
+          <a
+            href="/AvgustMIPE.apk"
+            download="AvgustMIPE.apk"
+            className="p-2 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors border border-white/10"
+            title="Descarga directa APK"
+          >
+            <Download className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
 
       {/* Primary Action CTA */}
       <button
@@ -332,6 +376,11 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
           </div>
         )}
       </div>
+
+      <InstallAppModal
+        isOpen={showInstallModal}
+        onClose={() => setShowInstallModal(false)}
+      />
     </div>
   );
 };
