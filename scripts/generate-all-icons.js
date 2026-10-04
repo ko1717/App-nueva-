@@ -138,7 +138,7 @@ async function generateIcons() {
   if (!fs.existsSync(drawableDir)) fs.mkdirSync(drawableDir, { recursive: true });
   fs.writeFileSync(path.join(drawableDir, 'ic_launcher_foreground.png'), masterFg);
 
-  // 3. Update APK packages (both root and public)
+  // 3. Update and Sign APK packages (both root and public)
   console.log('4. Updating APK mipmaps inside AvgustMIPE.apk...');
   const apkPaths = ['AvgustMIPE.apk', 'public/AvgustMIPE.apk'];
 
@@ -151,24 +151,22 @@ async function generateIcons() {
         const v4Dir = `res/mipmap-${d.name}-v4`;
         const { launcherPng, roundPng } = generatedMipmaps[d.name];
 
-        // Replace or add launcher & round
         zip.updateFile(`${v4Dir}/ic_launcher.png`, launcherPng);
         zip.updateFile(`${v4Dir}/ic_launcher_round.png`, roundPng);
       }
 
-      // Also update drawable foreground inside apk if present
-      const fgFile = zip.getEntry('res/drawable/ic_launcher_foreground.xml');
-      if (fgFile) {
-        // keep or update
-      }
-
       zip.writeZip(apkPath);
-      console.log(`Successfully updated ${apkPath}`);
+      console.log(`Updated images in ${apkPath}, now resigning with v1 scheme...`);
     }
   }
 
-  console.log('All icons generated and synced successfully!');
+  const { signApk } = await import('./sign-apk.js');
+  signApk('AvgustMIPE.apk', 'AvgustMIPE.apk');
+  signApk('AvgustMIPE.apk', 'public/AvgustMIPE.apk');
+
+  console.log('All icons generated and APK signed successfully!');
 }
+
 
 generateIcons().catch(err => {
   console.error('Error generating icons:', err);
