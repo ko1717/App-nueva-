@@ -1,7 +1,7 @@
 import AdmZip from 'adm-zip';
 import fs from 'fs';
 import path from 'path';
-import { signApk } from './sign-apk.js';
+import { signApkWithV1AndV2 } from './sign-apk-v2.js';
 
 async function buildAndPackageApk() {
   console.log('--- 1. Packaging Web App into Android APK ---');
@@ -49,10 +49,10 @@ async function buildAndPackageApk() {
   const tempApk = 'AvgustMIPE_temp.apk';
   zip.writeZip(tempApk);
 
-  // 4. Sign with Android keystore
-  console.log('--- 2. Signing APK with v1 cryptographic signature ---');
-  signApk(tempApk, 'AvgustMIPE.apk');
-  signApk(tempApk, 'public/AvgustMIPE.apk');
+  // 4. Sign with Android keystore using dual Scheme v1 + Scheme v2
+  console.log('--- 2. Signing APK with Scheme v1 + Scheme v2 ---');
+  signApkWithV1AndV2(tempApk, 'AvgustMIPE.apk');
+  signApkWithV1AndV2(tempApk, 'public/AvgustMIPE.apk');
   
   if (fs.existsSync('dist')) {
     fs.copyFileSync('public/AvgustMIPE.apk', 'dist/AvgustMIPE.apk');
@@ -62,10 +62,11 @@ async function buildAndPackageApk() {
     fs.unlinkSync(tempApk);
   }
 
-  console.log('SUCCESS! AvgustMIPE.apk has been generated with 1:1 parity to the web development environment.');
+  console.log('SUCCESS! AvgustMIPE.apk has been generated and dual-signed (v1 + v2) with 1:1 parity to web.');
 }
 
 buildAndPackageApk().catch(err => {
   console.error('Error packaging APK:', err);
   process.exit(1);
 });
+
