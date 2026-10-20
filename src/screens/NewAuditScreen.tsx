@@ -227,38 +227,38 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
   ];
 
   return (
-    <div className="space-y-5 pb-24">
+    <div className="space-y-5">
       {/* Header with Navigation */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <button
           onClick={onCancel}
-          className="flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-sm transition-colors"
+          className="btn-secondary"
         >
           <ArrowLeft className="w-4 h-4" /> Cancelar
         </button>
-        <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+        <span className="rounded-full border border-forest-200 bg-forest-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider tabular-nums text-forest-800">
           Paso {step} de 5
         </span>
       </div>
 
       {/* Step Progress Bar */}
-      <div className="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm">
-        <div className="grid grid-cols-5 gap-1.5 mb-2">
+      <div className="surface p-3.5">
+        <div className="mb-2.5 grid grid-cols-5 gap-1.5">
           {[1, 2, 3, 4, 5].map((s) => (
             <div
               key={s}
-              className={`h-2 rounded-full transition-all ${
+              className={`h-1.5 rounded-full transition-colors ${
                 s === step
-                  ? 'bg-emerald-600 ring-2 ring-emerald-300'
+                  ? 'bg-forest-600 ring-2 ring-forest-200'
                   : s < step
-                  ? 'bg-emerald-700'
-                  : 'bg-slate-200'
+                  ? 'bg-forest-800'
+                  : 'bg-line'
               }`}
             />
           ))}
         </div>
         <div className="text-center">
-          <span className="text-xs font-bold text-slate-800">
+          <span className="text-sm font-semibold text-ink">
             {stepsHeaders[step - 1]}
           </span>
         </div>
@@ -266,9 +266,9 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
 
       {/* STEP 1: General & Location */}
       {step === 1 && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
-          <h2 className="text-sm font-bold text-slate-900 border-b pb-2 flex items-center gap-2">
-            <span className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black flex items-center justify-center">
+        <div className="surface p-5 space-y-4">
+          <h2 className="flex items-center gap-2.5 border-b border-line pb-3 text-[15px] font-semibold leading-snug text-ink">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-forest-200 bg-forest-50 text-xs font-semibold tabular-nums text-forest-800">
               1
             </span>
             Datos Generales y Condiciones Ambientales
@@ -276,12 +276,12 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Lote Registrado (Opcional para autocompletar)
               </label>
               <select
                 onChange={(e) => handleLotSelect(e.target.value)}
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:ring-2 focus:ring-emerald-500"
+                className="field"
               >
                 <option value="">Seleccionar de lotes de la finca...</option>
                 {lots.map((l) => (
@@ -293,99 +293,99 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Finca Agrícola
               </label>
               <input
                 type="text"
                 value={draft.farmName}
                 onChange={(e) => setDraft({ ...draft, farmName: e.target.value })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:ring-2 focus:ring-emerald-500"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Bloque / Módulo
               </label>
               <input
                 type="text"
                 value={draft.blockName}
                 onChange={(e) => setDraft({ ...draft, blockName: e.target.value })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:ring-2 focus:ring-emerald-500"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Lote / Válvula
               </label>
               <input
                 type="text"
                 value={draft.lotName}
                 onChange={(e) => setDraft({ ...draft, lotName: e.target.value })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:ring-2 focus:ring-emerald-500"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Cultivo Evaluado
               </label>
               <input
                 type="text"
                 value={draft.crop}
                 onChange={(e) => setDraft({ ...draft, crop: e.target.value })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:ring-2 focus:ring-emerald-500"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Etapa Fenológica
               </label>
               <input
                 type="text"
                 value={draft.phenologicalStage}
                 onChange={(e) => setDraft({ ...draft, phenologicalStage: e.target.value })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:ring-2 focus:ring-emerald-500"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Auditor Técnico Avgust
               </label>
               <input
                 type="text"
                 value={draft.auditorName}
                 onChange={(e) => setDraft({ ...draft, auditorName: e.target.value })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:ring-2 focus:ring-emerald-500"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Responsable Finca / Agrónomo
               </label>
               <input
                 type="text"
                 value={draft.farmResponsible}
                 onChange={(e) => setDraft({ ...draft, farmResponsible: e.target.value })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:ring-2 focus:ring-emerald-500"
+                className="field"
               />
             </div>
           </div>
 
           {/* Ambient Conditions */}
-          <div className="pt-3 border-t border-slate-100">
-            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <div className="border-t border-line pt-4">
+            <h3 className="eyebrow mb-2.5 flex items-center gap-1.5">
               <Thermometer className="w-3.5 h-3.5 text-amber-500" />
               Condiciones Climáticas al Momento de la Auditoría
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 items-end gap-3 sm:grid-cols-4">
               <div>
-                <label className="block text-[11px] text-slate-600 mb-1">
+                <label className="mb-1.5 block text-xs text-ink-muted">
                   Temperatura (°C)
                 </label>
                 <input
@@ -393,22 +393,22 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                   step="0.5"
                   value={draft.temperatureCelsius}
                   onChange={(e) => setDraft({ ...draft, temperatureCelsius: parseFloat(e.target.value) || 20 })}
-                  className="w-full p-2 border border-slate-200 rounded-lg text-xs"
+                  className="field"
                 />
               </div>
               <div>
-                <label className="block text-[11px] text-slate-600 mb-1">
+                <label className="mb-1.5 block text-xs text-ink-muted">
                   Humedad Relativa (%)
                 </label>
                 <input
                   type="number"
                   value={draft.relativeHumidityPercent}
                   onChange={(e) => setDraft({ ...draft, relativeHumidityPercent: parseInt(e.target.value) || 60 })}
-                  className="w-full p-2 border border-slate-200 rounded-lg text-xs"
+                  className="field"
                 />
               </div>
               <div>
-                <label className="block text-[11px] text-slate-600 mb-1">
+                <label className="mb-1.5 block text-xs text-ink-muted">
                   Velocidad Viento (km/h)
                 </label>
                 <input
@@ -416,18 +416,18 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                   step="0.5"
                   value={draft.windSpeedKmh}
                   onChange={(e) => setDraft({ ...draft, windSpeedKmh: parseFloat(e.target.value) || 3 })}
-                  className="w-full p-2 border border-slate-200 rounded-lg text-xs"
+                  className="field"
                 />
               </div>
               <div>
-                <label className="block text-[11px] text-slate-600 mb-1">
+                <label className="mb-1.5 block text-xs text-ink-muted">
                   Estado del Tiempo
                 </label>
                 <input
                   type="text"
                   value={draft.weatherCondition}
                   onChange={(e) => setDraft({ ...draft, weatherCondition: e.target.value })}
-                  className="w-full p-2 border border-slate-200 rounded-lg text-xs"
+                  className="field"
                 />
               </div>
             </div>
@@ -437,9 +437,9 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
 
       {/* STEP 2: Pest & Disease Monitoring */}
       {step === 2 && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
-          <h2 className="text-sm font-bold text-slate-900 border-b pb-2 flex items-center gap-2">
-            <span className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black flex items-center justify-center">
+        <div className="surface p-5 space-y-4">
+          <h2 className="flex items-center gap-2.5 border-b border-line pb-3 text-[15px] font-semibold leading-snug text-ink">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-forest-200 bg-forest-50 text-xs font-semibold tabular-nums text-forest-800">
               2
             </span>
             Pilar 1: Monitoreo Fitosanitario y Umbrales Económicos
@@ -447,7 +447,7 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Tipo de Blanco
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -456,10 +456,10 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                     key={type}
                     type="button"
                     onClick={() => setDraft({ ...draft, targetProblemType: type })}
-                    className={`py-2 text-xs font-bold rounded-xl border transition-all ${
+                    className={`min-h-10 rounded-control border px-2 py-2 text-xs font-semibold leading-tight transition-colors ${
                       draft.targetProblemType === type
-                        ? 'bg-emerald-700 text-white border-emerald-700 shadow-sm'
-                        : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
+                        ? 'bg-forest-700 text-white border-forest-700'
+                        : 'bg-surface border-line-strong text-ink-muted hover:bg-surface-muted hover:text-ink'
                     }`}
                   >
                     {type}
@@ -469,7 +469,7 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Sugerencias del Catálogo de Plagas
               </label>
               <select
@@ -483,7 +483,7 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                     });
                   }
                 }}
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               >
                 <option value="">Seleccionar plaga/enfermedad conocida...</option>
                 {[...pests]
@@ -497,31 +497,31 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Nombre del Blanco Fitosanitario
               </label>
               <input
                 type="text"
                 value={draft.targetProblemName}
                 onChange={(e) => setDraft({ ...draft, targetProblemName: e.target.value })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Órgano Evaluado (Hojas, Botones, Frutos, etc.)
               </label>
               <input
                 type="text"
                 value={draft.organEvaluated}
                 onChange={(e) => setDraft({ ...draft, organEvaluated: e.target.value })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Tamaño de Muestra (Unidades evaluadas)
               </label>
               <input
@@ -529,12 +529,12 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 min="1"
                 value={draft.sampleSize}
                 onChange={(e) => setDraft({ ...draft, sampleSize: parseInt(e.target.value) || 100 })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Unidades Afectadas / Positivas
               </label>
               <input
@@ -542,12 +542,12 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 min="0"
                 value={draft.infectedCount}
                 onChange={(e) => setDraft({ ...draft, infectedCount: parseInt(e.target.value) || 0 })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 % Severidad Media Estimada
               </label>
               <input
@@ -557,12 +557,12 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 max="100"
                 value={draft.severityPercent}
                 onChange={(e) => setDraft({ ...draft, severityPercent: parseFloat(e.target.value) || 0 })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Nivel de Riesgo Fitosanitario
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -571,14 +571,14 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                     key={lvl}
                     type="button"
                     onClick={() => setDraft({ ...draft, pestRiskLevel: lvl })}
-                    className={`py-2 text-xs font-bold rounded-xl border transition-all ${
+                    className={`min-h-10 rounded-control border px-2 py-2 text-xs font-semibold leading-tight transition-colors ${
                       draft.pestRiskLevel === lvl
                         ? lvl === 'BAJO'
-                          ? 'bg-emerald-700 text-white border-emerald-700'
+                          ? 'bg-forest-700 text-white border-forest-700'
                           : lvl === 'MEDIO'
                           ? 'bg-amber-600 text-white border-amber-600'
                           : 'bg-rose-600 text-white border-rose-600'
-                        : 'bg-white border-slate-200 text-slate-700'
+                        : 'bg-surface border-line-strong text-ink-muted hover:bg-surface-muted hover:text-ink'
                     }`}
                   >
                     {lvl}
@@ -589,20 +589,20 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
           </div>
 
           {/* Live Calculated Incidence */}
-          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex items-center justify-between">
+          <div className="flex items-center justify-between gap-3 rounded-control border border-forest-200 bg-forest-50 p-3.5">
             <div>
-              <span className="text-xs font-semibold text-emerald-900 block">
+              <span className="block text-xs font-semibold text-forest-950">
                 Incidencia Fitosanitaria Calculada
               </span>
-              <span className="text-[11px] text-emerald-700">
+              <span className="text-[11px] tabular-nums text-forest-700">
                 {draft.infectedCount} afectadas de {draft.sampleSize} evaluadas
               </span>
             </div>
-            <div className="text-right">
-              <span className="text-xl font-black text-emerald-800">
+            <div className="shrink-0 text-right">
+              <span className="text-xl font-semibold tabular-nums text-forest-800">
                 {incidencePercent.toFixed(1)}%
               </span>
-              <span className="block text-[10px] font-bold text-emerald-700">
+              <span className="block whitespace-nowrap text-[11px] font-medium tabular-nums text-forest-700">
                 Puntaje Pilar: {scores.pestMonitoringScore} / 25
               </span>
             </div>
@@ -612,9 +612,9 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
 
       {/* STEP 3: Spray Application Quality */}
       {step === 3 && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
-          <h2 className="text-sm font-bold text-slate-900 border-b pb-2 flex items-center gap-2">
-            <span className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black flex items-center justify-center">
+        <div className="surface p-5 space-y-4">
+          <h2 className="flex items-center gap-2.5 border-b border-line pb-3 text-[15px] font-semibold leading-snug text-ink">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-forest-200 bg-forest-50 text-xs font-semibold tabular-nums text-forest-800">
               3
             </span>
             Pilar 2: Calidad de Aplicación y Evaluación Hidrosensible
@@ -622,29 +622,29 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Tipo de Boquilla
               </label>
               <input
                 type="text"
                 value={draft.nozzleType}
                 onChange={(e) => setDraft({ ...draft, nozzleType: e.target.value })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Estado Físico de Boquillas
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setDraft({ ...draft, nozzleConditionOk: true })}
-                  className={`py-2 text-xs font-bold rounded-xl border ${
+                  className={`min-h-10 rounded-control border px-2 py-2 text-xs font-semibold leading-tight transition-colors ${
                     draft.nozzleConditionOk
-                      ? 'bg-emerald-700 text-white border-emerald-700'
-                      : 'bg-white border-slate-200 text-slate-700'
+                      ? 'bg-forest-700 text-white border-forest-700'
+                      : 'bg-surface border-line-strong text-ink-muted hover:bg-surface-muted hover:text-ink'
                   }`}
                 >
                   Óptimo (Sin desgaste)
@@ -652,10 +652,10 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 <button
                   type="button"
                   onClick={() => setDraft({ ...draft, nozzleConditionOk: false })}
-                  className={`py-2 text-xs font-bold rounded-xl border ${
+                  className={`min-h-10 rounded-control border px-2 py-2 text-xs font-semibold leading-tight transition-colors ${
                     !draft.nozzleConditionOk
                       ? 'bg-rose-600 text-white border-rose-600'
-                      : 'bg-white border-slate-200 text-slate-700'
+                      : 'bg-surface border-line-strong text-ink-muted hover:bg-surface-muted hover:text-ink'
                   }`}
                 >
                   Desgastada / Dañada
@@ -664,7 +664,7 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Presión de Trabajo (PSI)
               </label>
               <input
@@ -672,12 +672,12 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 step="5"
                 value={draft.sprayPressurePsi}
                 onChange={(e) => setDraft({ ...draft, sprayPressurePsi: parseFloat(e.target.value) || 45 })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Volumen Caldo Objetivo (L/ha)
               </label>
               <input
@@ -685,12 +685,12 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 step="50"
                 value={draft.targetVolumeLitersPerHa}
                 onChange={(e) => setDraft({ ...draft, targetVolumeLitersPerHa: parseFloat(e.target.value) || 800 })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Densidad de Impactos (Gotas / cm² en papel hidrosensible)
               </label>
               <input
@@ -699,13 +699,13 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 max="140"
                 value={draft.dropsPerCm2}
                 onChange={(e) => setDraft({ ...draft, dropsPerCm2: parseInt(e.target.value) || 60 })}
-                className="w-full accent-emerald-600 cursor-pointer"
+                className="w-full cursor-pointer accent-forest-700"
               />
               <HydrosensitiveCardPreview dropsPerCm2={draft.dropsPerCm2} quality={coverageQuality} />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 pH del Agua de Mezcla (Óptimo 5.5 - 6.5)
               </label>
               <input
@@ -713,12 +713,12 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 step="0.1"
                 value={draft.waterPh}
                 onChange={(e) => setDraft({ ...draft, waterPh: parseFloat(e.target.value) || 6.0 })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Dureza del Agua (ppm CaCO3)
               </label>
               <input
@@ -726,34 +726,34 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 step="10"
                 value={draft.waterHardnessPpm}
                 onChange={(e) => setDraft({ ...draft, waterHardnessPpm: parseInt(e.target.value) || 100 })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Coadyuvante / Humectante Empleado
               </label>
               <input
                 type="text"
                 value={draft.adjuvantUsed}
                 onChange={(e) => setDraft({ ...draft, adjuvantUsed: e.target.value })}
-                className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                className="field"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="mb-1.5 block text-xs font-semibold text-ink">
                 Secuencia de Mezcla WALES
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setDraft({ ...draft, walesSequenceCorrect: true })}
-                  className={`py-2 text-xs font-bold rounded-xl border ${
+                  className={`min-h-10 rounded-control border px-2 py-2 text-xs font-semibold leading-tight transition-colors ${
                     draft.walesSequenceCorrect
-                      ? 'bg-emerald-700 text-white border-emerald-700'
-                      : 'bg-white border-slate-200 text-slate-700'
+                      ? 'bg-forest-700 text-white border-forest-700'
+                      : 'bg-surface border-line-strong text-ink-muted hover:bg-surface-muted hover:text-ink'
                   }`}
                 >
                   Correcta (WALES)
@@ -761,10 +761,10 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 <button
                   type="button"
                   onClick={() => setDraft({ ...draft, walesSequenceCorrect: false })}
-                  className={`py-2 text-xs font-bold rounded-xl border ${
+                  className={`min-h-10 rounded-control border px-2 py-2 text-xs font-semibold leading-tight transition-colors ${
                     !draft.walesSequenceCorrect
                       ? 'bg-rose-600 text-white border-rose-600'
-                      : 'bg-white border-slate-200 text-slate-700'
+                      : 'bg-surface border-line-strong text-ink-muted hover:bg-surface-muted hover:text-ink'
                   }`}
                 >
                   Incorrecta
@@ -777,9 +777,9 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
 
       {/* STEP 4: Cultural, Biological, MOA & BPA */}
       {step === 4 && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
-          <h2 className="text-sm font-bold text-slate-900 border-b pb-2 flex items-center gap-2">
-            <span className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black flex items-center justify-center">
+        <div className="surface p-5 space-y-4">
+          <h2 className="flex items-center gap-2.5 border-b border-line pb-3 text-[15px] font-semibold leading-snug text-ink">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-forest-200 bg-forest-50 text-xs font-semibold tabular-nums text-forest-800">
               4
             </span>
             Pilares 3, 4 y 5: Manejo Cultural, Rotación MOA y BPA
@@ -788,7 +788,7 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
           <div className="space-y-4">
             {/* Cultural & Biological Checkbox buttons */}
             <div>
-              <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              <h3 className="eyebrow mb-2.5">
                 Pilar 3: Manejo Cultural & Biológico (20 pts)
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -818,18 +818,18 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                     key={idx}
                     type="button"
                     onClick={item.toggle}
-                    className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
+                    className={`flex min-h-12 items-center justify-between gap-3 rounded-control border p-3 text-left transition-colors ${
                       item.val
-                        ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
-                        : 'bg-slate-50 border-slate-200 text-slate-600'
+                        ? 'bg-forest-50 border-forest-300 text-forest-900'
+                        : 'bg-surface border-line-strong text-ink-muted hover:bg-surface-muted'
                     }`}
                   >
                     <span className="text-xs font-semibold">{item.label}</span>
                     <div
-                      className={`w-5 h-5 rounded-md flex items-center justify-center border ${
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-[5px] border ${
                         item.val
-                          ? 'bg-emerald-600 border-emerald-600 text-white'
-                          : 'border-slate-300 bg-white'
+                          ? 'bg-forest-700 border-forest-700 text-white'
+                          : 'border-line-strong bg-surface'
                       }`}
                     >
                       {item.val && <CheckCircle2 className="w-3.5 h-3.5" />}
@@ -840,23 +840,23 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
             </div>
 
             {/* MOA Rotation */}
-            <div className="pt-2 border-t border-slate-100">
-              <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            <div className="border-t border-line pt-4">
+              <h3 className="eyebrow mb-2.5">
                 Pilar 4: Rotación MOA (FRAC/IRAC/HRAC) (15 pts)
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="mb-1.5 block text-xs font-semibold text-ink">
                     ¿Cumple con alternancia de Modo de Acción?
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       type="button"
                       onClick={() => setDraft({ ...draft, moaRotationCompliant: true })}
-                      className={`py-2 text-xs font-bold rounded-xl border ${
+                      className={`min-h-10 rounded-control border px-2 py-2 text-xs font-semibold leading-tight transition-colors ${
                         draft.moaRotationCompliant
-                          ? 'bg-emerald-700 text-white border-emerald-700'
-                          : 'bg-white border-slate-200 text-slate-700'
+                          ? 'bg-forest-700 text-white border-forest-700'
+                          : 'bg-surface border-line-strong text-ink-muted hover:bg-surface-muted hover:text-ink'
                       }`}
                     >
                       Sí, Rota Grupo
@@ -864,10 +864,10 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                     <button
                       type="button"
                       onClick={() => setDraft({ ...draft, moaRotationCompliant: false })}
-                      className={`py-2 text-xs font-bold rounded-xl border ${
+                      className={`min-h-10 rounded-control border px-2 py-2 text-xs font-semibold leading-tight transition-colors ${
                         !draft.moaRotationCompliant
                           ? 'bg-rose-600 text-white border-rose-600'
-                          : 'bg-white border-slate-200 text-slate-700'
+                          : 'bg-surface border-line-strong text-ink-muted hover:bg-surface-muted hover:text-ink'
                       }`}
                     >
                       No (Riesgo Resistencia)
@@ -876,22 +876,22 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="mb-1.5 block text-xs font-semibold text-ink">
                     Grupo MOA Anterior
                   </label>
                   <input
                     type="text"
                     value={draft.previousMoaGroup}
                     onChange={(e) => setDraft({ ...draft, previousMoaGroup: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                    className="field"
                   />
                 </div>
               </div>
             </div>
 
             {/* BPA & Biosecurity */}
-            <div className="pt-2 border-t border-slate-100">
-              <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            <div className="border-t border-line pt-4">
+              <h3 className="eyebrow mb-2.5">
                 Pilar 5: BPA, Bioseguridad y Operario (15 pts)
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -916,18 +916,18 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                     key={idx}
                     type="button"
                     onClick={item.toggle}
-                    className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
+                    className={`flex min-h-12 items-center justify-between gap-3 rounded-control border p-3 text-left transition-colors ${
                       item.val
-                        ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
-                        : 'bg-slate-50 border-slate-200 text-slate-600'
+                        ? 'bg-forest-50 border-forest-300 text-forest-900'
+                        : 'bg-surface border-line-strong text-ink-muted hover:bg-surface-muted'
                     }`}
                   >
                     <span className="text-xs font-semibold">{item.label}</span>
                     <div
-                      className={`w-5 h-5 rounded-md flex items-center justify-center border ${
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-[5px] border ${
                         item.val
-                          ? 'bg-emerald-600 border-emerald-600 text-white'
-                          : 'border-slate-300 bg-white'
+                          ? 'bg-forest-700 border-forest-700 text-white'
+                          : 'border-line-strong bg-surface'
                       }`}
                     >
                       {item.val && <CheckCircle2 className="w-3.5 h-3.5" />}
@@ -946,21 +946,21 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
           {/* Live Scorecard Preview */}
           <AuditScoreCard scores={scores} showPillars={true} />
 
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
-            <h2 className="text-sm font-bold text-slate-900 border-b pb-2 flex items-center gap-2">
-              <Shield className="w-5 h-5 text-emerald-700" />
+          <div className="surface p-5 space-y-4">
+            <h2 className="flex items-center gap-2.5 border-b border-line pb-3 text-[15px] font-semibold leading-snug text-ink">
+              <Shield className="h-5 w-5 shrink-0 text-forest-700" />
               Prescripción Agronómica y Solución Técnica Avgust
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="mb-1.5 block text-xs font-semibold text-ink">
                   Producto Avgust Recomendado
                 </label>
                 <select
                   value={draft.recommendedProduct}
                   onChange={(e) => handleProductSelect(e.target.value)}
-                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 font-bold focus:ring-2 focus:ring-emerald-500"
+                  className="field font-semibold"
                 >
                   {[...products]
                     .sort((a, b) => a.tradeName.localeCompare(b.tradeName, 'es', { sensitivity: 'base' }))
@@ -973,19 +973,19 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="mb-1.5 block text-xs font-semibold text-ink">
                   Ingrediente Activo & Concentración
                 </label>
                 <input
                   type="text"
                   value={draft.activeIngredient}
                   onChange={(e) => setDraft({ ...draft, activeIngredient: e.target.value })}
-                  className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                  className="field"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="mb-1.5 block text-xs font-semibold text-ink">
                   Dosis Técnica Recomendada
                 </label>
                 <input
@@ -993,12 +993,12 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                   value={draft.recommendedDose}
                   onChange={(e) => setDraft({ ...draft, recommendedDose: e.target.value })}
                   placeholder="ej. 0.4 cc/L"
-                  className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                  className="field"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="mb-1.5 block text-xs font-semibold text-ink">
                   Capacidad de Caneca / Tanque (Litros)
                 </label>
                 <input
@@ -1006,30 +1006,30 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                   step="50"
                   value={draft.tankVolumeLiters}
                   onChange={(e) => setDraft({ ...draft, tankVolumeLiters: parseFloat(e.target.value) || 200 })}
-                  className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium"
+                  className="field"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs flex items-center justify-between">
-                  <span className="font-semibold text-emerald-900">
+                <div className="flex items-center justify-between gap-3 rounded-control border border-forest-200 bg-forest-50 p-3.5 text-xs">
+                  <span className="font-semibold text-forest-950">
                     Preparación Calculada para Mezcla:
                   </span>
-                  <span className="font-black text-emerald-800 text-sm">
+                  <span className="text-right text-sm font-semibold tabular-nums text-forest-800">
                     {totalProductNeeded}
                   </span>
                 </div>
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="mb-1.5 block text-xs font-semibold text-ink">
                   Recomendaciones Técnicas y Observaciones del Asesor
                 </label>
                 <textarea
                   rows={3}
                   value={draft.technicalNotes}
                   onChange={(e) => setDraft({ ...draft, technicalNotes: e.target.value })}
-                  className="w-full p-2.5 border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:ring-2 focus:ring-emerald-500"
+                  className="field"
                 />
               </div>
             </div>
@@ -1043,7 +1043,7 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
           <button
             type="button"
             onClick={() => setStep(step - 1)}
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+            className="btn-secondary min-h-11 px-4"
           >
             <ArrowLeft className="w-4 h-4" /> Anterior
           </button>
@@ -1055,7 +1055,7 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
           <button
             type="button"
             onClick={() => setStep(step + 1)}
-            className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-emerald-700 text-white text-xs font-bold hover:bg-emerald-800 shadow-md transition-all ml-auto"
+            className="btn-primary ml-auto min-h-11 px-5"
           >
             Siguiente <ArrowRight className="w-4 h-4" />
           </button>
@@ -1063,7 +1063,7 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
           <button
             type="button"
             onClick={handleSubmit}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#004D20] to-[#007A33] text-white text-xs font-black shadow-lg hover:shadow-xl transition-all ml-auto"
+            className="btn-primary ml-auto min-h-11 px-5"
           >
             <Save className="w-4 h-4" /> Guardar y Emitir Dictamen MIPE
           </button>

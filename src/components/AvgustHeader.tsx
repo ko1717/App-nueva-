@@ -1,5 +1,4 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
 
 interface AvgustHeaderProps {
   title?: string;
@@ -13,47 +12,36 @@ export const AvgustHeader: React.FC<AvgustHeaderProps> = ({
   showBadge = true,
 }) => {
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#004D20] via-[#007A33] to-[#0D9488] p-5 text-white shadow-lg border border-emerald-600/40">
-      {/* Decorative leaf/field backdrop effect */}
-      <div className="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-emerald-400/10 blur-2xl pointer-events-none" />
-      <div className="absolute right-4 top-2 w-28 h-28 opacity-20 pointer-events-none">
-        <img src="/avgust-logo.svg" alt="" className="w-full h-full object-contain filter invert brightness-200" />
-      </div>
-
-      <div className="relative z-10 flex items-start justify-between">
-        <div className="flex items-center gap-3.5">
-          <div className="w-16 h-16 rounded-2xl bg-white p-1.5 flex items-center justify-center shadow-lg shrink-0 border border-emerald-300/60">
-            <img
-              src="/avgust-logo.png"
-              alt="Avgust Crop Protection"
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-black tracking-widest text-emerald-200 uppercase bg-emerald-950/50 px-2.5 py-0.5 rounded-full border border-emerald-400/30">
-                AVGUST CROP PROTECTION
-              </span>
-            </div>
-            <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white mt-1">
-              {title}
-            </h1>
-          </div>
+    <header className="rounded-card bg-forest-900 px-5 pt-5 pb-4 text-white ring-1 ring-inset ring-white/5 sm:px-6 sm:pt-6">
+      <div className="flex items-start gap-4">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[10px] bg-white p-1 shadow-sm">
+          <img
+            src="/avgust-logo.png"
+            alt="Avgust Crop Protection"
+            className="h-full w-full object-contain"
+          />
         </div>
 
-        {showBadge && (
-          <div className="hidden sm:flex items-center gap-1.5 bg-emerald-950/40 border border-emerald-400/30 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold text-emerald-200 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            <span>MIPE 360°</span>
+        <div className="min-w-0 flex-1 pt-0.5">
+          <div className="flex items-center justify-between gap-3">
+            <span className="eyebrow text-brass-500">AVGUST CROP PROTECTION</span>
+            {showBadge && (
+              <span className="hidden shrink-0 rounded-full border border-white/15 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-white/75 sm:inline-flex">
+                MIPE 360°
+              </span>
+            )}
           </div>
-        )}
+          <h1 className="mt-1 font-brand text-[1.5rem] font-semibold leading-[1.15] tracking-[-0.01em] text-white sm:text-[1.875rem]">
+            {title}
+          </h1>
+        </div>
       </div>
 
       {subtitle && (
-        <p className="relative z-10 mt-2.5 text-xs sm:text-sm text-emerald-100 font-medium max-w-xl">
-          {subtitle}
-        </p>
+        <div className="mt-4 border-t border-white/10 pt-3">
+          <p className="max-w-2xl text-sm leading-relaxed text-white/75">{subtitle}</p>
+        </div>
       )}
-    </div>
+    </header>
   );
 };

@@ -138,23 +138,23 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
   };
 
   return (
-    <div className="space-y-5 pb-24">
+    <div className="space-y-5">
       {/* Top Bar */}
       <div className="flex items-center justify-between gap-2">
         <button
           onClick={onBack}
-          className="flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-sm hover:bg-slate-50 transition-colors"
+          className="btn-secondary"
         >
           <ArrowLeft className="w-4 h-4" /> Volver
         </button>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-purple-900 bg-purple-100 px-3 py-1 rounded-full border border-purple-300">
+          <span className="rounded-full border border-forest-200 bg-forest-50 px-3 py-1 text-xs font-semibold tabular-nums text-forest-800">
             {filteredPests.length} Registradas
           </span>
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-1 text-xs font-bold text-white bg-purple-700 hover:bg-purple-800 px-3 py-1.5 rounded-xl shadow-sm transition-colors"
+            className="btn-primary"
           >
             <Plus className="w-3.5 h-3.5" /> Agregar Plaga
           </button>
@@ -169,27 +169,27 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
       {/* Search and Filters */}
       <div className="space-y-3">
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-600 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-subtle" />
           <input
             type="text"
             placeholder="Buscar por nombre común, científico, síntoma, cultivo o producto..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm"
+            className="field pl-9"
           />
         </div>
 
         {/* Category Filter Chips */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-          <Filter className="w-3.5 h-3.5 text-slate-600 flex-shrink-0 mr-1" />
+          <Filter className="mr-1 h-3.5 w-3.5 flex-shrink-0 text-ink-subtle" />
           {['TODOS', 'PLAGA', 'ENFERMEDAD', 'ARVENSE'].map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              className={`whitespace-nowrap rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
                 selectedCategory === cat
-                  ? 'bg-purple-700 text-white shadow-sm'
-                  : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                  ? 'border-forest-800 bg-forest-800 text-white'
+                  : 'border-line bg-surface text-ink-muted hover:border-line-strong hover:text-ink'
               }`}
             >
               {cat === 'TODOS'
@@ -205,17 +205,17 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
 
         {/* Crop Filter Chips */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-          <span className="text-[11px] font-bold text-slate-600 flex-shrink-0 mr-1">
+          <span className="mr-1 flex-shrink-0 text-xs font-semibold text-ink-muted">
             Cultivo:
           </span>
           {cropFilters.map((crop) => (
             <button
               key={crop}
               onClick={() => setSelectedCrop(crop)}
-              className={`px-2.5 py-0.5 rounded-lg text-[11px] font-medium whitespace-nowrap transition-colors ${
+              className={`whitespace-nowrap rounded-control px-2.5 py-1 text-xs font-medium transition-colors ${
                 selectedCrop === crop
-                  ? 'bg-emerald-700 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-forest-100 text-forest-900'
+                  : 'bg-surface-sunken text-ink-muted hover:bg-line'
               }`}
             >
               {crop}
@@ -227,9 +227,9 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
       {/* Pest Cards List */}
       <div className="space-y-4">
         {filteredPests.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-dashed border-slate-300 p-8 text-center space-y-2">
-            <Bug className="w-10 h-10 text-slate-600 mx-auto opacity-40" />
-            <p className="text-sm font-bold text-slate-700">
+          <div className="rounded-card border border-dashed border-line-strong bg-surface p-8 text-center space-y-2">
+            <Bug className="mx-auto h-9 w-9 text-ink-subtle opacity-60" />
+            <p className="text-sm font-semibold text-ink">
               No se encontraron coincidencias
             </p>
             <p className="text-xs text-slate-600">
@@ -250,29 +250,29 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
             return (
               <div
                 key={pest.id}
-                className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3.5 hover:border-purple-300 transition-all group"
+                className="surface group space-y-3.5 p-5 transition hover:border-forest-300"
               >
                 {/* Header */}
-                <div className="flex flex-wrap items-start justify-between gap-2 border-b border-slate-100 pb-3">
+                <div className="flex flex-wrap items-start justify-between gap-2 border-b border-line pb-3">
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="text-base font-black text-slate-900">
+                      <h3 className="text-base font-semibold text-ink">
                         {pest.commonName}
                       </h3>
-                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${badgeConfig}`}>
+                      <span className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold tracking-wider ${badgeConfig}`}>
                         {pest.category}
                       </span>
                     </div>
-                    <p className="text-xs italic text-slate-600 font-serif mt-0.5">
+                    <p className="mt-0.5 text-sm italic text-ink-muted">
                       {pest.scientificName}
                     </p>
                   </div>
 
-                  <div className="text-right text-xs">
-                    <span className="text-slate-600 block text-[10px] uppercase font-bold">
+                  <div className="text-xs sm:text-right">
+                    <span className="block text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
                       Cultivos Afectados:
                     </span>
-                    <span className="font-semibold text-slate-800">
+                    <span className="font-semibold text-ink">
                       {pest.affectedCrops.join(', ')}
                     </span>
                   </div>
@@ -280,8 +280,8 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
 
                 {/* Symptoms & Economic Threshold */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                  <div className="bg-rose-50/80 p-3 rounded-xl border border-rose-200">
-                    <span className="font-bold text-rose-950 flex items-center gap-1.5 mb-1">
+                  <div className="rounded-control border border-rose-200 bg-rose-50/70 p-3">
+                    <span className="font-semibold text-rose-950 flex items-center gap-1.5 mb-1">
                       <AlertCircle className="w-3.5 h-3.5 text-rose-600" />
                       Umbral Económico de Intervención:
                     </span>
@@ -293,8 +293,8 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
                     </span>
                   </div>
 
-                  <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
-                    <span className="font-bold text-slate-800 flex items-center gap-1.5 mb-1">
+                  <div className="rounded-control border border-line bg-surface-muted p-3">
+                    <span className="font-semibold text-ink flex items-center gap-1.5 mb-1">
                       <Sprout className="w-3.5 h-3.5 text-emerald-700" />
                       Órganos y Síntomas Clave:
                     </span>
@@ -305,27 +305,27 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
                 </div>
 
                 {/* Cultural & Biological strategies */}
-                <div className="text-xs space-y-1.5 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="space-y-1.5 rounded-control border border-line bg-surface-muted p-3 text-xs">
                   <div>
-                    <span className="font-bold text-slate-800">Estrategia Cultural MIPE: </span>
+                    <span className="font-semibold text-ink">Estrategia Cultural MIPE: </span>
                     <span className="text-slate-600">{pest.mipeCulturalStrategy}</span>
                   </div>
                   <div>
-                    <span className="font-bold text-slate-800">Control Biológico & Benéficos: </span>
+                    <span className="font-semibold text-ink">Control Biológico & Benéficos: </span>
                     <span className="text-slate-600">{pest.mipeBiologicalStrategy}</span>
                   </div>
                 </div>
 
                 {/* Avgust Recommendation footer */}
-                <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border border-emerald-300 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div className="flex flex-col justify-between gap-3 rounded-control border border-forest-200 bg-forest-50 p-3.5 text-xs sm:flex-row sm:items-center">
                   <div>
-                    <span className="font-bold text-emerald-950 block">
+                    <span className="block font-semibold text-forest-950">
                       Solución Técnica Recomendada Avgust:
                     </span>
-                    <span className="text-sm font-black text-emerald-800">
+                    <span className="text-sm font-semibold text-forest-800">
                       {pest.recommendedAvgustSolution}
                     </span>
-                    <span className="block text-[10px] text-emerald-700 font-semibold mt-0.5">
+                    <span className="mt-0.5 block text-[11px] font-medium text-forest-700">
                       Rotación: {pest.recommendedMoaGroup}
                     </span>
                   </div>
@@ -333,7 +333,7 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
                   {onStartAuditWithPest && (
                     <button
                       onClick={() => onStartAuditWithPest(pest)}
-                      className="flex items-center justify-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-sm transition-all flex-shrink-0"
+                      className="btn-primary flex-shrink-0"
                     >
                       <span>Auditar con esta Plaga</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -348,52 +348,52 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
 
       {/* Add Custom Pest Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/55 p-4 backdrop-blur-[2px]">
+          <div className="max-h-[90vh] w-full max-w-lg space-y-4 overflow-y-auto rounded-2xl border border-line bg-surface p-6 shadow-modal">
+            <div className="flex items-center justify-between gap-3 border-b border-line pb-3">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-purple-600" />
-                <h2 className="text-base font-bold text-slate-900">
+                <Sparkles className="h-[18px] w-[18px] text-forest-700" />
+                <h2 className="text-base font-semibold text-ink">
                   Registrar Nueva Plaga o Enfermedad
                 </h2>
               </div>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="text-slate-400 hover:text-slate-700"
+                className="rounded-control p-1.5 text-ink-subtle transition-colors hover:bg-surface-sunken hover:text-ink"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleCreatePest} className="space-y-3 text-xs">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 items-end gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Nombre Común *</label>
+                  <label className="mb-1.5 block font-semibold text-ink">Nombre Común *</label>
                   <input
                     type="text"
                     required
                     placeholder="ej. Ácaro blanco"
                     value={formData.commonName}
                     onChange={(e) => setFormData({ ...formData, commonName: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded-xl"
+                    className="field"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Nombre Científico *</label>
+                  <label className="mb-1.5 block font-semibold text-ink">Nombre Científico *</label>
                   <input
                     type="text"
                     required
                     placeholder="ej. Polyphagotarsonemus latus"
                     value={formData.scientificName}
                     onChange={(e) => setFormData({ ...formData, scientificName: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded-xl italic"
+                    className="field italic"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 items-end gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Tipo de Blanco</label>
+                  <label className="mb-1.5 block font-semibold text-ink">Tipo de Blanco</label>
                   <select
                     value={formData.category}
                     onChange={(e) =>
@@ -402,7 +402,7 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
                         category: e.target.value as 'PLAGA' | 'ENFERMEDAD' | 'ARVENSE',
                       })
                     }
-                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl"
+                    className="field"
                   >
                     <option value="PLAGA">Plaga (Insecto / Ácaro / Nematodo)</option>
                     <option value="ENFERMEDAD">Enfermedad (Hongo / Bacteria / Oomiceto)</option>
@@ -410,84 +410,84 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
                   </select>
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Cultivos Afectados</label>
+                  <label className="mb-1.5 block font-semibold text-ink">Cultivos Afectados</label>
                   <input
                     type="text"
                     placeholder="ej. Flores, Tomate, Pimentón"
                     value={formData.affectedCrops}
                     onChange={(e) => setFormData({ ...formData, affectedCrops: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded-xl"
+                    className="field"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Órgano Evaluado</label>
+                <label className="mb-1.5 block font-semibold text-ink">Órgano Evaluado</label>
                 <input
                   type="text"
                   placeholder="ej. Hojas tiernas y brotes apicales"
                   value={formData.targetOrgans}
                   onChange={(e) => setFormData({ ...formData, targetOrgans: e.target.value })}
-                  className="w-full p-2.5 border border-slate-200 rounded-xl"
+                  className="field"
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Síntomas y Daño en Campo</label>
+                <label className="mb-1.5 block font-semibold text-ink">Síntomas y Daño en Campo</label>
                 <textarea
                   rows={2}
                   placeholder="ej. Rizado hacia abajo de las hojas apicales, bronceado y endurecimiento."
                   value={formData.symptoms}
                   onChange={(e) => setFormData({ ...formData, symptoms: e.target.value })}
-                  className="w-full p-2.5 border border-slate-200 rounded-xl"
+                  className="field"
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Umbral Económico de Daño</label>
+                <label className="mb-1.5 block font-semibold text-ink">Umbral Económico de Daño</label>
                 <input
                   type="text"
                   placeholder="ej. > 5% de brotes con presencia activa"
                   value={formData.economicThreshold}
                   onChange={(e) => setFormData({ ...formData, economicThreshold: e.target.value })}
-                  className="w-full p-2.5 border border-slate-200 rounded-xl"
+                  className="field"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 items-end gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Solución Recomendada Avgust</label>
+                  <label className="mb-1.5 block font-semibold text-ink">Solución Recomendada Avgust</label>
                   <input
                     type="text"
                     placeholder="ej. Sirocco EC (0.8 cc/L) + Avgust Star"
                     value={formData.recommendedAvgustSolution}
                     onChange={(e) => setFormData({ ...formData, recommendedAvgustSolution: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded-xl"
+                    className="field"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Grupo MOA / Rotación</label>
+                  <label className="mb-1.5 block font-semibold text-ink">Grupo MOA / Rotación</label>
                   <input
                     type="text"
                     placeholder="ej. IRAC 1B rotando con IRAC 21A"
                     value={formData.recommendedMoaGroup}
                     onChange={(e) => setFormData({ ...formData, recommendedMoaGroup: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded-xl"
+                    className="field"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t">
+              <div className="flex justify-end gap-2 border-t border-line pt-4">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 border border-slate-200 rounded-xl text-slate-700 font-bold hover:bg-slate-50"
+                  className="btn-secondary"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-purple-700 text-white rounded-xl font-bold hover:bg-purple-800 shadow"
+                  className="btn-primary"
                 >
                   Guardar en Catálogo
                 </button>

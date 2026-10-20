@@ -126,16 +126,16 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
   }, [products, search, selectedCategory, selectedCrop, sortOrder]);
 
   return (
-    <div className="space-y-5 pb-24">
+    <div className="space-y-5">
       {/* Top Navigation */}
       <div className="flex items-center justify-between gap-2">
         <button
           onClick={onBack}
-          className="flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-sm hover:bg-slate-50 transition-colors"
+          className="btn-secondary"
         >
           <ArrowLeft className="w-4 h-4" /> Volver
         </button>
-        <span className="text-xs font-black text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-300">
+        <span className="rounded-full border border-forest-200 bg-forest-50 px-3 py-1 text-right text-xs font-semibold tabular-nums text-forest-800">
           Portafolio Oficial Avgust ({filteredProducts.length} Productos)
         </span>
       </div>
@@ -149,27 +149,27 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
       <div className="space-y-3">
         {/* Search Bar */}
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-600 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-subtle" />
           <input
             type="text"
             placeholder="Buscar por producto (ej. Balerina, Borey), ingrediente activo (ej. Azoxistrobina), código MOA o cultivo..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-sm"
+            className="field pl-9"
           />
         </div>
 
         {/* Category Filters */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-          <Filter className="w-3.5 h-3.5 text-slate-600 flex-shrink-0 mr-1" />
+          <Filter className="mr-1 h-3.5 w-3.5 flex-shrink-0 text-ink-subtle" />
           {categories.map((cat) => (
             <button
               key={cat.key}
               onClick={() => setSelectedCategory(cat.key)}
-              className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              className={`whitespace-nowrap rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
                 selectedCategory === cat.key
-                  ? 'bg-emerald-700 text-white shadow-sm'
-                  : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                  ? 'border-forest-800 bg-forest-800 text-white'
+                  : 'border-line bg-surface text-ink-muted hover:border-line-strong hover:text-ink'
               }`}
             >
               {cat.label}
@@ -179,17 +179,17 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
 
         {/* Crop Filters */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-          <span className="text-[11px] font-bold text-slate-600 flex-shrink-0 mr-1">
+          <span className="mr-1 flex-shrink-0 text-xs font-semibold text-ink-muted">
             Cultivo:
           </span>
           {cropFilters.map((crop) => (
             <button
               key={crop}
               onClick={() => setSelectedCrop(crop)}
-              className={`px-2.5 py-0.5 rounded-lg text-[11px] font-medium whitespace-nowrap transition-colors ${
+              className={`whitespace-nowrap rounded-control px-2.5 py-1 text-xs font-medium transition-colors ${
                 selectedCrop === crop
-                  ? 'bg-emerald-800 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-forest-100 text-forest-900'
+                  : 'bg-surface-sunken text-ink-muted hover:bg-line'
               }`}
             >
               {crop}
@@ -198,19 +198,19 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
         </div>
 
         {/* Sort Controls Bar */}
-        <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-200/80 text-xs">
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[11px] font-bold text-slate-700">
+        <div className="flex items-center justify-between gap-2 border-t border-line pt-3 text-xs">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-semibold text-ink-muted">
               Orden Alfabético:
             </span>
-            <div className="inline-flex rounded-lg border border-slate-200 bg-white p-0.5 shadow-2xs">
+            <div className="inline-flex rounded-control border border-line bg-surface p-0.5">
               <button
                 type="button"
                 onClick={() => setSortOrder('ABC_ASC')}
-                className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all ${
+                className={`rounded-[6px] px-2.5 py-1 text-xs font-semibold transition-colors ${
                   sortOrder === 'ABC_ASC'
-                    ? 'bg-emerald-700 text-white shadow-2xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-forest-800 text-white'
+                    : 'text-ink-muted hover:text-ink'
                 }`}
               >
                 A → Z (ABC)
@@ -218,10 +218,10 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
               <button
                 type="button"
                 onClick={() => setSortOrder('ABC_DESC')}
-                className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all ${
+                className={`rounded-[6px] px-2.5 py-1 text-xs font-semibold transition-colors ${
                   sortOrder === 'ABC_DESC'
-                    ? 'bg-emerald-700 text-white shadow-2xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-forest-800 text-white'
+                    : 'text-ink-muted hover:text-ink'
                 }`}
               >
                 Z → A
@@ -229,10 +229,10 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
               <button
                 type="button"
                 onClick={() => setSortOrder('CATEGORY')}
-                className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all ${
+                className={`rounded-[6px] px-2.5 py-1 text-xs font-semibold transition-colors ${
                   sortOrder === 'CATEGORY'
-                    ? 'bg-emerald-700 text-white shadow-2xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-forest-800 text-white'
+                    : 'text-ink-muted hover:text-ink'
                 }`}
               >
                 Por Categoría
@@ -240,7 +240,7 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
             </div>
           </div>
 
-          <span className="text-[11px] font-semibold text-slate-500 hidden sm:inline">
+          <span className="hidden text-xs tabular-nums text-ink-subtle sm:inline">
             Mostrando {filteredProducts.length} de {products.length} productos
           </span>
         </div>
@@ -249,12 +249,12 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
       {/* Product Cards List */}
       <div className="space-y-4">
         {filteredProducts.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-dashed border-slate-300 p-8 text-center space-y-2">
-            <Shield className="w-10 h-10 text-slate-600 mx-auto opacity-40" />
-            <p className="text-sm font-bold text-slate-700">
+          <div className="rounded-card border border-dashed border-line-strong bg-surface p-8 text-center space-y-2">
+            <Shield className="mx-auto h-9 w-9 text-ink-subtle opacity-60" />
+            <p className="text-sm font-semibold text-ink">
               No se encontraron productos con estos criterios
             </p>
-            <p className="text-xs text-slate-600">
+            <p className="text-xs text-ink-muted">
               Prueba limpiando los filtros o buscando por nombre comercial o ingrediente activo.
             </p>
           </div>
@@ -273,61 +273,61 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
               ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
               : isAdjuvant
               ? 'bg-teal-100 text-teal-900 border-teal-300'
-              : 'bg-purple-100 text-purple-900 border-purple-300';
+              : 'bg-stone-100 text-stone-800 border-stone-300';
 
             return (
               <div
                 key={prod.id}
-                className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3.5 hover:border-emerald-500/60 transition-all group"
+                className="surface group space-y-3.5 p-5 transition hover:border-forest-300"
               >
                 {/* Header */}
-                <div className="flex flex-wrap items-start justify-between gap-2 border-b border-slate-100 pb-3">
+                <div className="flex flex-wrap items-start justify-between gap-2 border-b border-line pb-3">
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="text-base font-black text-slate-900">
+                      <h3 className="text-base font-semibold text-ink">
                         {prod.tradeName}
                       </h3>
                       <span
-                        className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${categoryBadgeColor}`}
+                        className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold tracking-wider ${categoryBadgeColor}`}
                       >
                         {prod.category}
                       </span>
                     </div>
-                    <p className="text-xs font-semibold text-slate-700 mt-0.5">
+                    <p className="mt-0.5 text-xs font-semibold text-ink-muted">
                       {prod.activeIngredient} •{' '}
-                      <span className="text-slate-600 font-normal">{prod.formulation}</span>
+                      <span className="font-normal text-ink-subtle">{prod.formulation}</span>
                     </p>
                   </div>
 
-                  <div className="text-right">
-                    <span className="text-xs font-black text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 inline-block shadow-xs">
+                  <div className="sm:text-right">
+                    <span className="inline-block rounded-control border border-forest-200 bg-forest-50 px-2.5 py-1 text-xs font-semibold tabular-nums text-forest-800">
                       Código: {prod.moaCode}
                     </span>
-                    <span className="block text-[10px] text-slate-600 mt-0.5 font-medium">
+                    <span className="mt-1 block text-[11px] font-medium text-ink-muted">
                       {prod.chemicalGroup}
                     </span>
                   </div>
                 </div>
 
                 {/* Doses, Reentry, and Pre-harvest Intervals */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs bg-slate-50 p-3 rounded-xl border border-slate-100">
+                <div className="grid grid-cols-1 gap-3 rounded-control border border-line bg-surface-muted p-3 text-xs sm:grid-cols-3">
                   <div>
-                    <span className="text-[10px] font-bold text-slate-600 uppercase block">
+                    <span className="mb-0.5 block text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
                       Dosis Técnica Recomendada:
                     </span>
-                    <strong className="text-slate-900 text-xs">{prod.standardDose}</strong>
+                    <strong className="text-xs font-semibold text-ink">{prod.standardDose}</strong>
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold text-slate-600 uppercase flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-slate-600" /> Periodo de Reingreso (PR):
+                    <span className="mb-0.5 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
+                      <Clock className="h-3 w-3 text-ink-subtle" /> Periodo de Reingreso (PR):
                     </span>
-                    <strong className="text-slate-800">{prod.reEntryPeriodHours} horas</strong>
+                    <strong className="font-semibold tabular-nums text-ink">{prod.reEntryPeriodHours} horas</strong>
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold text-slate-600 uppercase flex items-center gap-1">
-                      <Calendar className="w-3 h-3 text-slate-600" /> Periodo de Carencia (PC):
+                    <span className="mb-0.5 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
+                      <Calendar className="h-3 w-3 text-ink-subtle" /> Periodo de Carencia (PC):
                     </span>
-                    <strong className="text-slate-800">
+                    <strong className="font-semibold tabular-nums text-ink">
                       {prod.preHarvestIntervalDays > 0
                         ? `${prod.preHarvestIntervalDays} días a cosecha`
                         : '0 días (sin restricción)'}
@@ -336,48 +336,48 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
                 </div>
 
                 {/* Targets and Crops */}
-                <div className="text-xs space-y-1">
+                <div className="text-xs space-y-1 leading-relaxed">
                   <div>
-                    <span className="font-bold text-slate-800">Blancos Fitosanitarios: </span>
-                    <span className="text-slate-700 font-medium">
+                    <span className="font-semibold text-ink">Blancos Fitosanitarios: </span>
+                    <span className="text-ink-muted">
                       {prod.targetPests.join(' • ')}
                     </span>
                   </div>
                   <div>
-                    <span className="font-bold text-slate-800">Cultivos Registrados: </span>
-                    <span className="text-slate-600 font-medium">
+                    <span className="font-semibold text-ink">Cultivos Registrados: </span>
+                    <span className="text-ink-muted">
                       {prod.targetCrops.join(', ')}
                     </span>
                   </div>
                 </div>
 
                 {/* Key agronomic feature */}
-                <div className="text-xs text-slate-800 bg-emerald-50/60 p-2.5 rounded-xl border border-emerald-100 leading-relaxed">
-                  <span className="font-bold text-emerald-950 flex items-center gap-1 mb-0.5">
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-700" /> Ventaja Agronómica Avgust:
+                <div className="rounded-control border border-forest-100 bg-forest-50/70 p-3 text-xs leading-relaxed text-ink">
+                  <span className="mb-1 flex items-center gap-1.5 font-semibold text-forest-950">
+                    <Sparkles className="h-3.5 w-3.5 text-forest-700" /> Ventaja Agronómica Avgust:
                   </span>
                   {prod.keyFeatures}
                 </div>
 
                 {/* Actions footer */}
-                <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
-                  <div className="text-[11px] text-slate-600">
-                    <strong>Compatibilidad:</strong> {prod.compatibilityTips}
+                <div className="flex flex-col justify-between gap-3 border-t border-line pt-3 text-xs sm:flex-row sm:items-center">
+                  <div className="text-[11px] leading-relaxed text-ink-muted">
+                    <strong className="font-semibold text-ink">Compatibilidad:</strong> {prod.compatibilityTips}
                   </div>
 
                   <div className="flex items-center gap-2 flex-shrink-0 ml-auto">
                     <button
                       onClick={() => setActiveProductModal(prod)}
-                      className="flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-50 transition-colors"
+                      className="btn-secondary"
                     >
-                      <Info className="w-3.5 h-3.5 text-slate-600" />
+                      <Info className="h-3.5 w-3.5 text-ink-subtle" />
                       <span>Ficha Técnica</span>
                     </button>
 
                     {onSelectProductForAudit && (
                       <button
                         onClick={() => onSelectProductForAudit(prod)}
-                        className="flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-emerald-700 text-white font-bold hover:bg-emerald-800 shadow-sm transition-colors"
+                        className="btn-primary"
                       >
                         <span>Prescribir MIPE</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -393,78 +393,78 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
 
       {/* Technical Sheet Modal */}
       {activeProductModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-start justify-between border-b pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/55 p-4 backdrop-blur-[2px]">
+          <div className="max-h-[90vh] w-full max-w-xl space-y-4 overflow-y-auto rounded-2xl border border-line bg-surface p-6 shadow-modal">
+            <div className="flex items-start justify-between gap-3 border-b border-line pb-3">
               <div>
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 uppercase">
+                <span className="inline-block rounded-full border border-forest-200 bg-forest-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-forest-800">
                   Ficha Técnica Oficial Avgust
                 </span>
-                <h2 className="text-xl font-black text-slate-900 mt-1">
+                <h2 className="mt-1.5 text-xl font-semibold leading-tight text-ink">
                   {activeProductModal.tradeName}
                 </h2>
-                <p className="text-xs text-slate-600 font-semibold">
+                <p className="mt-0.5 text-xs font-semibold text-ink-muted">
                   {activeProductModal.activeIngredient}
                 </p>
               </div>
               <button
                 onClick={() => setActiveProductModal(null)}
-                className="text-slate-400 hover:text-slate-700 p-1"
+                className="rounded-control p-1.5 text-ink-subtle transition-colors hover:bg-surface-sunken hover:text-ink"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="space-y-3 text-xs">
-              <div className="grid grid-cols-2 gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
+            <div className="space-y-3.5 text-xs">
+              <div className="grid grid-cols-2 gap-3 rounded-control border border-line bg-surface-muted p-3">
                 <div>
-                  <span className="text-[10px] text-slate-600 uppercase font-bold block">
+                  <span className="mb-0.5 block text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
                     Categoría:
                   </span>
-                  <span className="font-bold text-slate-900">
+                  <span className="font-semibold text-ink">
                     {activeProductModal.category}
                   </span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-600 uppercase font-bold block">
+                  <span className="mb-0.5 block text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
                     Formulación:
                   </span>
-                  <span className="font-bold text-slate-900">
+                  <span className="font-semibold text-ink">
                     {activeProductModal.formulation}
                   </span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-600 uppercase font-bold block">
+                  <span className="mb-0.5 block text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
                     Grupo Químico:
                   </span>
-                  <span className="font-bold text-slate-900">
+                  <span className="font-semibold text-ink">
                     {activeProductModal.chemicalGroup}
                   </span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-600 uppercase font-bold block">
+                  <span className="mb-0.5 block text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
                     Código de Modo de Acción:
                   </span>
-                  <span className="font-black text-emerald-800">
+                  <span className="font-semibold tabular-nums text-forest-800">
                     {activeProductModal.moaCode}
                   </span>
                 </div>
               </div>
 
               <div>
-                <span className="font-bold text-slate-900 block mb-1">
+                <span className="mb-1.5 block font-semibold text-ink">
                   Dosis y Recomendación Agronómica:
                 </span>
-                <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 font-semibold text-emerald-950">
+                <div className="rounded-control border border-forest-200 bg-forest-50 p-3 font-semibold text-forest-950">
                   {activeProductModal.standardDose}
                 </div>
               </div>
 
               <div>
-                <span className="font-bold text-slate-900 block mb-1">
+                <span className="mb-1.5 block font-semibold text-ink">
                   Plagas / Enfermedades / Malezas Controladas:
                 </span>
-                <ul className="list-disc pl-5 space-y-0.5 text-slate-700">
+                <ul className="list-disc space-y-0.5 pl-5 text-ink-muted marker:text-forest-600">
                   {activeProductModal.targetPests.map((pest, idx) => (
                     <li key={idx}>{pest}</li>
                   ))}
@@ -472,57 +472,57 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
               </div>
 
               <div>
-                <span className="font-bold text-slate-900 block mb-1">
+                <span className="mb-1.5 block font-semibold text-ink">
                   Cultivos Autorizados en Registro:
                 </span>
-                <p className="text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                <p className="rounded-control border border-line bg-surface-muted p-3 text-ink-muted">
                   {activeProductModal.targetCrops.join(', ')}
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
-                <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200">
-                  <span className="text-[10px] font-bold text-slate-600 block">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-control border border-line bg-surface-muted p-3">
+                  <span className="mb-0.5 block text-[10px] font-semibold text-ink-muted">
                     Periodo de Reingreso (PR):
                   </span>
-                  <span className="font-black text-slate-900 text-sm">
+                  <span className="text-sm font-semibold tabular-nums text-ink">
                     {activeProductModal.reEntryPeriodHours} horas
                   </span>
                 </div>
-                <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200">
-                  <span className="text-[10px] font-bold text-slate-600 block">
+                <div className="rounded-control border border-line bg-surface-muted p-3">
+                  <span className="mb-0.5 block text-[10px] font-semibold text-ink-muted">
                     Periodo de Carencia (PC):
                   </span>
-                  <span className="font-black text-slate-900 text-sm">
+                  <span className="text-sm font-semibold tabular-nums text-ink">
                     {activeProductModal.preHarvestIntervalDays} días
                   </span>
                 </div>
               </div>
 
               <div>
-                <span className="font-bold text-slate-900 block mb-1">
+                <span className="mb-1.5 block font-semibold text-ink">
                   Consejos de Mezcla y Compatibilidad WALES:
                 </span>
-                <p className="text-slate-700 text-xs leading-relaxed">
+                <p className="text-xs leading-relaxed text-ink-muted">
                   {activeProductModal.compatibilityTips}
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-t border-line pt-4">
               <button
                 type="button"
                 onClick={() => handleCopyTechSheet(activeProductModal)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-50 transition-colors text-xs"
+                className="btn-secondary"
               >
                 {copiedNotification ? (
                   <>
-                    <Check className="w-4 h-4 text-emerald-600" />
-                    <span className="text-emerald-700">¡Copiado al Portapapeles!</span>
+                    <Check className="h-4 w-4 text-forest-600" />
+                    <span className="text-forest-700">¡Copiado al Portapapeles!</span>
                   </>
                 ) : (
                   <>
-                    <Sparkles className="w-4 h-4 text-emerald-600" />
+                    <Sparkles className="h-4 w-4 text-forest-600" />
                     <span>Copiar Ficha Técnica</span>
                   </>
                 )}
@@ -531,7 +531,7 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
               <div className="flex items-center gap-2 ml-auto">
                 <button
                   onClick={() => setActiveProductModal(null)}
-                  className="px-4 py-2 border border-slate-200 rounded-xl text-slate-700 font-bold hover:bg-slate-50 text-xs"
+                  className="btn-secondary"
                 >
                   Cerrar
                 </button>
@@ -542,7 +542,7 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
                       setActiveProductModal(null);
                       onSelectProductForAudit(prod);
                     }}
-                    className="px-5 py-2 bg-emerald-700 text-white rounded-xl font-bold hover:bg-emerald-800 shadow text-xs flex items-center gap-1.5"
+                    className="btn-primary"
                   >
                     <span>Prescribir en Auditoría MIPE</span>
                     <ArrowRight className="w-4 h-4" />
