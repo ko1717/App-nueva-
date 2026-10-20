@@ -91,6 +91,15 @@
 }
 
 @layer base {
+  /* Tailwind v4 defaults bare `border` to currentColor; keep it on the hairline instead. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-line);
+  }
+
   html {
     -webkit-text-size-adjust: 100%;
   }
