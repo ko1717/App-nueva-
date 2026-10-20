@@ -268,7 +268,7 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
                     </p>
                   </div>
 
-                  <div className="text-right text-xs">
+                  <div className="text-xs sm:text-right">
                     <span className="block text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
                       Cultivos Afectados:
                     </span>
@@ -366,7 +366,7 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
             </div>
 
             <form onSubmit={handleCreatePest} className="space-y-3 text-xs">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 items-end gap-3">
                 <div>
                   <label className="mb-1.5 block font-semibold text-ink">Nombre Común *</label>
                   <input
@@ -391,7 +391,7 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 items-end gap-3">
                 <div>
                   <label className="mb-1.5 block font-semibold text-ink">Tipo de Blanco</label>
                   <select
@@ -454,7 +454,7 @@ export const PestCatalogScreen: React.FC<PestCatalogScreenProps> = ({
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 items-end gap-3">
                 <div>
                   <label className="mb-1.5 block font-semibold text-ink">Solución Recomendada Avgust</label>
                   <input

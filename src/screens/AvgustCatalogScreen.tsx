@@ -299,7 +299,7 @@ Compatibilidad WALES: ${prod.compatibilityTips}`;
                     </p>
                   </div>
 
-                  <div className="text-right">
+                  <div className="sm:text-right">
                     <span className="inline-block rounded-control border border-forest-200 bg-forest-50 px-2.5 py-1 text-xs font-semibold tabular-nums text-forest-800">
                       Código: {prod.moaCode}
                     </span>

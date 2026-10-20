@@ -169,7 +169,7 @@ export const FarmLotsScreen: React.FC<FarmLotsScreenProps> = ({ lots, onBack, on
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 items-end gap-3">
                 <div>
                   <label className="mb-1.5 block font-semibold text-ink">Bloque / Módulo</label>
                   <input
@@ -193,7 +193,7 @@ export const FarmLotsScreen: React.FC<FarmLotsScreenProps> = ({ lots, onBack, on
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 items-end gap-3">
                 <div>
                   <label className="mb-1.5 block font-semibold text-ink">Cultivo *</label>
                   <input
@@ -217,7 +217,7 @@ export const FarmLotsScreen: React.FC<FarmLotsScreenProps> = ({ lots, onBack, on
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 items-end gap-3">
                 <div>
                   <label className="mb-1.5 block font-semibold text-ink">Área (Hectáreas)</label>
                   <input
@@ -240,7 +240,7 @@ export const FarmLotsScreen: React.FC<FarmLotsScreenProps> = ({ lots, onBack, on
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 items-end gap-3">
                 <div>
                   <label className="mb-1.5 block font-semibold text-ink">Responsable / Agrónomo</label>
                   <input

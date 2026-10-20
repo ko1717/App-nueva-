@@ -68,7 +68,7 @@ export const AuditDetailScreen: React.FC<AuditDetailScreenProps> = ({
       <div className="flex flex-wrap items-center justify-between gap-2">
         <button
           onClick={onBack}
-          className="btn-secondary"
+          className="btn-secondary px-3"
         >
           <ArrowLeft className="w-4 h-4" /> Volver al Inicio
         </button>
@@ -76,7 +76,7 @@ export const AuditDetailScreen: React.FC<AuditDetailScreenProps> = ({
         <div className="ml-auto flex items-center gap-2">
           <button
             onClick={handleCopyReport}
-            className="btn-primary"
+            className="btn-primary px-3"
             title="Copiar Acta Técnica para WhatsApp o Correo"
           >
             {copied ? (
@@ -123,8 +123,8 @@ export const AuditDetailScreen: React.FC<AuditDetailScreenProps> = ({
               </p>
             </div>
           </div>
-          <div className="text-right text-xs text-ink-muted">
-            <div className="flex items-center justify-end gap-1 font-medium">
+          <div className="text-xs text-ink-muted sm:text-right">
+            <div className="flex items-center gap-1 font-medium sm:justify-end">
               <Calendar className="h-3.5 w-3.5 text-ink-subtle" /> {formattedDate}
             </div>
             <div className="mt-0.5">

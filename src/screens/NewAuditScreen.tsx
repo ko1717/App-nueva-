@@ -383,7 +383,7 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
               <Thermometer className="w-3.5 h-3.5 text-amber-500" />
               Condiciones Climáticas al Momento de la Auditoría
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 items-end gap-3 sm:grid-cols-4">
               <div>
                 <label className="mb-1.5 block text-xs text-ink-muted">
                   Temperatura (°C)
@@ -598,11 +598,11 @@ export const NewAuditScreen: React.FC<NewAuditScreenProps> = ({
                 {draft.infectedCount} afectadas de {draft.sampleSize} evaluadas
               </span>
             </div>
-            <div className="text-right">
+            <div className="shrink-0 text-right">
               <span className="text-xl font-semibold tabular-nums text-forest-800">
                 {incidencePercent.toFixed(1)}%
               </span>
-              <span className="block text-[11px] font-medium tabular-nums text-forest-700">
+              <span className="block whitespace-nowrap text-[11px] font-medium tabular-nums text-forest-700">
                 Puntaje Pilar: {scores.pestMonitoringScore} / 25
               </span>
             </div>
