@@ -55,10 +55,10 @@ export const InstallAppModal: React.FC<InstallAppModalProps> = ({ isOpen, onClos
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-ink/60 p-4 backdrop-blur-[2px] animate-fade-in">
-      <div className="my-6 w-full max-w-lg overflow-hidden rounded-2xl border border-line bg-surface shadow-modal">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-4 backdrop-blur-[2px] animate-fade-in">
+      <div className="flex max-h-full w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-modal">
         {/* Header */}
-        <div className="relative bg-forest-900 p-5 text-white">
+        <div className="relative shrink-0 bg-forest-900 p-5 text-white">
           <button
             onClick={onClose}
             className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white/85 transition-colors hover:bg-white/20 hover:text-white"
@@ -107,7 +107,7 @@ export const InstallAppModal: React.FC<InstallAppModalProps> = ({ isOpen, onClos
         </div>
 
         {/* Content */}
-        <div className="max-h-[75vh] space-y-4 overflow-y-auto p-5">
+        <div className="min-h-0 space-y-4 overflow-y-auto overscroll-contain p-5">
           {activeTab === 'APK' ? (
             <div className="space-y-4">
               {/* Direct Download Button */}
@@ -250,7 +250,7 @@ export const InstallAppModal: React.FC<InstallAppModalProps> = ({ isOpen, onClos
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between gap-3 border-t border-line bg-surface-muted px-5 py-3.5">
+        <div className="flex shrink-0 items-center justify-between gap-3 border-t border-line bg-surface-muted px-5 py-3.5">
           <span className="text-[11px] text-ink-subtle">Avgust Crop Protection • v1.0</span>
           <button
             onClick={onClose}
