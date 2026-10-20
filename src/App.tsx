@@ -150,10 +150,17 @@ export function App() {
   };
 
   const selectedAudit = audits.find((a) => a.id === selectedAuditId) || audits[0];
+  const showDock = currentScreen !== 'NEW_AUDIT' && currentScreen !== 'AUDIT_DETAIL';
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-200">
-      <main className="max-w-4xl mx-auto px-4 pt-4 sm:pt-6">
+    <div className="min-h-screen bg-canvas text-ink font-sans selection:bg-forest-200">
+      <main
+        className={`max-w-5xl mx-auto px-4 sm:px-6 pt-[calc(env(safe-area-inset-top)+1rem)] sm:pt-[calc(env(safe-area-inset-top)+1.5rem)] ${
+          showDock
+            ? 'pb-[calc(env(safe-area-inset-bottom)+7.5rem)]'
+            : 'pb-[calc(env(safe-area-inset-bottom)+2.5rem)]'
+        }`}
+      >
         {currentScreen === 'DASHBOARD' && (
           <DashboardScreen
             audits={audits}
@@ -226,7 +233,7 @@ export function App() {
       </main>
 
       {/* Persistent Bottom Nav (always accessible except in full-screen detail and new audit wizard) */}
-      {currentScreen !== 'NEW_AUDIT' && currentScreen !== 'AUDIT_DETAIL' && (
+      {showDock && (
         <Navbar
           currentScreen={currentScreen}
           onNavigate={(screen) => setCurrentScreen(screen)}
